@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local warehouse (rebuilt by src/load.py)
+data/warehouse.duckdb
+data/*.duckdb
+
+# Secrets
+.env
+*.key
+*token*
+*secret*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

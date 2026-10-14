@@ -1,0 +1,14 @@
+run_id,check_name,category,severity,status,value,bad,total,root_cause
+20261014T072330Z,products.missing_product_code,completeness,high,PASS,0.0,0.0,18291.0,"the scraper returned rows without the store's product id, usually"
+20261014T072330Z,products.missing_name,completeness,high,PASS,0.0,0.0,18291.0,product name is required for any downstream report; a blank name
+20261014T072330Z,products.missing_brand,completeness,medium,PASS,0.0,0.0,18291.0,brand is optional on the source; a high blank rate is normal but
+20261014T072330Z,products.missing_category,completeness,medium,PASS,0.0,0.0,18291.0,category comes from the breadcrumb; missing means the page did not
+20261014T072330Z,products.duplicate_product_code,uniqueness,high,PASS,0.0,0.0,18291.0,the same product captured twice (double load or a re-scrape without
+20261014T072330Z,products.unparseable_price,validity,high,PASS,0.0,0.0,18291.0,the displayed price is kept as text; non-numeric means a currency
+20261014T072330Z,products.price_outlier,validity,medium,WARN,0.001,19.0,18291.0,a price far above the 99.9th percentile usually means a decimal
+20261014T072330Z,comments.missing_points,completeness,medium,FAIL,1.0,8835.0,8835.0,the public HN API omits 'points' on comment records; this is a
+20261014T072330Z,comments.missing_body,completeness,high,PASS,0.0,0.0,8835.0,a comment with no text cannot be analysed; usually a deleted or
+20261014T072330Z,comments.duplicate_id,uniqueness,high,PASS,0.0,0.0,8835.0,"the same comment id twice means paginated pulls overlapped SELECT 'duplicate_comment_id' AS metric, (SELECT COALESCE(SUM(c - 1), 0) FROM ( SELECT COUNT(*) AS c FROM raw_comments WHERE comment_id IS NOT NULL GROUP BY comment_id HAVING COUNT(*) > 1)) AS bad, (SELECT COUNT(*) FROM raw_comments WHERE comment_id IS NOT NULL) AS total;"
+20261014T072330Z,comments.unparseable_date,validity,high,PASS,0.0,0.0,8835.0,created_at is an ISO string; a non-parseable value breaks any
+20261014T072330Z,comments.stale_feed,freshness,medium,FAIL,16.0,16.0,1.0,"the newest comment is older than the freshness window, which means"
+20261014T072330Z,cross.category_coverage,distribution,low,WARN,0.0526,1.0,19.0,a category with very few products can mean a scraping gap on that
